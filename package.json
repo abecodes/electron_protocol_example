@@ -1,0 +1,19 @@
+{
+	"name": "protocol",
+	"version": "1.0.0",
+	"description": "simple electron protocol tutorial",
+	"main": "index.js",
+	"scripts": {
+		"start": "electron ."
+	},
+	"keywords": [
+		"electron",
+		"protocol",
+		"tutorial"
+	],
+	"author": "abe.codes <me@abe.codes> (http://abe.codes/)",
+	"license": "UNLICENSED",
+	"devDependencies": {
+		"electron": "^11.1.1"
+	}
+}

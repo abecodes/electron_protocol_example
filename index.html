@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Foogler</title>
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="script-src 'self' 'unsafe-inline' 'unsafe-eval';"
+		/>
+		<script>
+			const ipc = require("electron").ipcRenderer;
+		</script>
+	</head>
+	<body style="background: white">
+		<ul style="display: inline-flex; list-style: none">
+			<li style="padding: 0 20px">
+				<button id="Clear">Clear</button>
+			</li>
+			<li style="padding: 0 20px">
+				<p id="Focus" style="margin: 2px 0; color: red">Not focused</p>
+			</li>
+			<li style="padding: 0 20px">
+				<p style="margin: 2px 0">
+					<span>Searching for: </span><span id="Term"></span>
+				</p>
+			</li>
+		</ul>
+
+		<script>
+			document.querySelector("#Clear").addEventListener("click", (e) => {
+				ipc.send("clear", null);
+				document.querySelector("#Term").innerHTML = "";
+			});
+
+			ipc.on("focus", (e, args) => {
+				if (args) {
+					document.querySelector("#Focus").innerHTML = "Focused";
+					document.querySelector("#Focus").style.color = "green";
+				} else {
+					document.querySelector("#Focus").innerHTML = "Not focused";
+					document.querySelector("#Focus").style.color = "red";
+				}
+			});
+
+			ipc.on("term", (e, args) => {
+				if (args) {
+					document.querySelector("#Term").innerHTML = args;
+				}
+			});
+		</script>
+	</body>
+</html>
